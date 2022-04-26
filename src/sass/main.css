@@ -4,7 +4,9 @@ body {
     font-weight: bold;
 }
 
-
+.chart-show-link.is-closed {
+  display: none;
+}
 
 .chart-show-link {
     /* display: inline; */
