@@ -21,21 +21,17 @@ function chartDisplay() {
  chartShowBtn.addEventListener('click', chartDisplay);
  chartCloseBtn.addEventListener('click', chartDisplay);
 
-// =======================================================================================================
-//GEOLOCATION
-// =======================================================================================================
+
 function getWeatherByCity() {
   //const url = `https://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=88007012f79caf118a2a9709acbfec32&units=metric&lang=en`
   const url2 = `https://api.openweathermap.org/data/2.5/forecast?q=London&cnt=40&appid=192616cb441ff9a67bbb9f3f5782e997&units=metric&lang=en`
   fetch(url2).then(response => {
-
       if (!response.ok) {
         throw new Error(response.status);
       }
-      const datas = response.json();
       
+      return response.json();
   }).then(response => {
-    
     console.log(response);
     console.log(response.list[0].main.temp);
     console.log(response.list[1].main.humidity);
@@ -46,10 +42,22 @@ function getWeatherByCity() {
     // console.log(response.main.humidity);
     // console.log(response.main.pressure);
     // console.log(response.wind.speed);
+    const chartDataTemp = response.list.map((element) =>  temperature.push(element.main.temp) );
+    const chartDataHum = response.list.map((element) => humidity.push(element.main.humidity));
+    const chartDataPress = response.list.map((element) =>  pressure.push(element.main.pressure) );
+    const chartDataWind = response.list.map((element) => speed.push(element.wind.speed));
 
+    //temperature.push(element);    
+    //console.log(chartData);
   })
 };
 getWeatherByCity();
+
+const temperature = [];
+console.log(temperature);
+const humidity = [];
+const pressure = [];
+const speed = [];
 
 
 const date = new Date();
@@ -101,7 +109,8 @@ let data = {
             pointHoverBorderWidth: 3,
             pointHoverBackgroundColor: 'rgba(255,255,255,1)',
             pointHoverBorderColor: 'rgba(236,115,87,1)',
-            data: [10,16,13,16,20],
+            //data: [10,16,13,16,20],
+            data: temperature
         },
         {
             label: "Humidity, %",
@@ -122,7 +131,7 @@ let data = {
             pointHoverBorderWidth: 3,
             pointHoverBackgroundColor: 'rgba(9, 6, 235, 1)',
             pointHoverBorderColor: 'rgba(9, 6, 235, 1)',
-            data: [65, 59, 80, 81, 56, 55, 40],
+            data: humidity
         },
         {
             label: "Wind Speed, m/s",
@@ -143,7 +152,7 @@ let data = {
             pointHoverBorderWidth: 3,
             pointHoverBackgroundColor: 'rgba(31, 211, 221, 0.8)',
             pointHoverBorderColor: 'rgba(31, 211, 221, 0.8)',
-            data: [30, 20, 60, 50, 42, 15, 40],
+            data: speed
             
         },
         {
@@ -165,7 +174,7 @@ let data = {
           pointHoverBorderWidth: 3,
           pointHoverBackgroundColor: 'rgba(188, 25, 161, 0.8)',
           pointHoverBorderColor: 'rgba(188, 25, 161, 0.8)',
-          data: [10, 35, 25, 55, 37, 75, 40],
+          data: pressure
           
       }
     ]
