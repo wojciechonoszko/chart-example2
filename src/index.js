@@ -21,8 +21,64 @@ function chartDisplay() {
  chartShowBtn.addEventListener('click', chartDisplay);
  chartCloseBtn.addEventListener('click', chartDisplay);
 
+// =======================================================================================================
+//GEOLOCATION
+// =======================================================================================================
+function getWeatherByCity() {
+  //const url = `https://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=88007012f79caf118a2a9709acbfec32&units=metric&lang=en`
+  const url2 = `https://api.openweathermap.org/data/2.5/forecast?q=London&cnt=40&appid=192616cb441ff9a67bbb9f3f5782e997&units=metric&lang=en`
+  fetch(url2).then(response => {
+
+      if (!response.ok) {
+        throw new Error(response.status);
+      }
+      const datas = response.json();
+      return datas;
+  }).then(response => {
+    console.log(response);
+    console.log(response.list[0].main.temp);
+    console.log(response.list[1].main.humidity);
+    console.log(response.list[2].main.pressure);
+    console.log(response.list[3].wind.speed);
+
+    // console.log(response.main.temp);
+    // console.log(response.main.humidity);
+    // console.log(response.main.pressure);
+    // console.log(response.wind.speed);
+
+    let temperature =[13,14,17,19,10];
+    return temperature
+  })
+};
+getWeatherByCity();
+
+
+const date = new Date();
+const dates = [];
+const datesInSeconds = [];
+for(let i=0; i <= 4; i++){
+
+// const month = date.getUTCMonth() + 1; //months from 1-12
+// const day = date.getUTCDate();
+// const year = date.getUTCFullYear();
+const newdate = date.toLocaleString('en-us',{day: 'numeric', month:'short', year:'numeric'});
+//const newdate = year + "/" + month + "/" + day;
+dates.push(newdate);
+date.setDate(date.getDate() + 1);
+let dateInSeconds =(date.getTime()/1000).toFixed(0);
+console.log(dateInSeconds);
+datesInSeconds.push(dateInSeconds);
+// console.log(newdate);
+}
+console.log(dates);
+console.log(datesInSeconds);
+
+
+
+
 let data = {
-    labels: ["January", "February", "March", "April", "May"],
+    //labels: ["January", "February", "March", "April", "May"],
+    labels: dates,
     datasets: [
         {
             label: "Temperature, C°",
@@ -46,7 +102,7 @@ let data = {
             pointHoverBorderWidth: 3,
             pointHoverBackgroundColor: 'rgba(255,255,255,1)',
             pointHoverBorderColor: 'rgba(236,115,87,1)',
-            data: [50,30,40,30,32,25,30],
+            data: [10,16,13,16,20],
         },
         {
             label: "Humidity, %",
