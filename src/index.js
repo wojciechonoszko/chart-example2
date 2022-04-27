@@ -33,21 +33,20 @@ function getWeatherByCity() {
         throw new Error(response.status);
       }
       const datas = response.json();
-      return datas;
+      
   }).then(response => {
+    
     console.log(response);
     console.log(response.list[0].main.temp);
     console.log(response.list[1].main.humidity);
     console.log(response.list[2].main.pressure);
     console.log(response.list[3].wind.speed);
-
+    
     // console.log(response.main.temp);
     // console.log(response.main.humidity);
     // console.log(response.main.pressure);
     // console.log(response.wind.speed);
 
-    let temperature =[13,14,17,19,10];
-    return temperature
   })
 };
 getWeatherByCity();
