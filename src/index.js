@@ -201,7 +201,7 @@ let options = {
     plugins: {
       
         title: {
-            display: true,
+            display: false,
             text: 'Chart Title EXAMPLE',
             color: 'violet',
             font: {
@@ -234,8 +234,8 @@ let options = {
             display: true,
             title: {
               display: true,
-              text: 'Day of the year',
-              color: "pink",
+              text: 'Dates',
+              color: "white",
               
               font: {               
                 size: 20
@@ -246,7 +246,7 @@ let options = {
               font: {
                 size: 17
               },
-              color: 'red',
+              color: 'white',
             },
             grid: {
               color: 'white'
@@ -256,10 +256,10 @@ let options = {
         display: true,
         title: {
           display: true,
-          text: 'MONTHS values',
-          color: 'green',
+          text: 'Values',
+          color: 'white',
           font: {
-            size: 24
+            size: 20
           }
         },
         ticks: {
