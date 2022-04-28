@@ -6,6 +6,8 @@ import Chart from 'chart.js/auto';
 
  const ctx = document.getElementById('myChart');
 
+const fiveDaysBtn = document.querySelector('.show-five-days-button');
+const fiveDaysList = document.querySelector('.five-days-list');
 const chartShowBtn = document.querySelector('.chart-show-link');
 const chartShowBtnCtn = document.querySelector('.chart-show-button-container');
 const chartCloseBtn = document.querySelector('.chart-hide-link');
@@ -22,10 +24,10 @@ function chartDisplay() {
  chartCloseBtn.addEventListener('click', chartDisplay);
 
 
-function getWeatherByCity() {
+function getWeatherFiveDays() {
   //const url = `https://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=88007012f79caf118a2a9709acbfec32&units=metric&lang=en`
-  const url2 = `https://api.openweathermap.org/data/2.5/forecast?q=London&cnt=40&appid=192616cb441ff9a67bbb9f3f5782e997&units=metric&lang=en`
-  fetch(url2).then(response => {
+  const url = `https://api.openweathermap.org/data/2.5/forecast?q=London&cnt=40&appid=192616cb441ff9a67bbb9f3f5782e997&units=metric&lang=en`
+  return fetch(url).then(response => {
       if (!response.ok) {
         throw new Error(response.status);
       }
@@ -47,7 +49,7 @@ function getWeatherByCity() {
    
   })
 };
-getWeatherByCity();
+getWeatherFiveDays();
 
 const temperature = [];
 console.log(temperature);
