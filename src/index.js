@@ -6,12 +6,14 @@ import Chart from 'chart.js/auto';
 
  const ctx = document.getElementById('myChart');
 
-const fiveDaysBtn = document.querySelector('.show-five-days-button');
+const fiveDaysBtn = document.querySelector('.show-five-days-btn');
 const fiveDaysList = document.querySelector('.five-days-list');
 const chartShowBtn = document.querySelector('.chart-show-link');
 const chartShowBtnCtn = document.querySelector('.chart-show-button-container');
 const chartCloseBtn = document.querySelector('.chart-hide-link');
 const chartContainer = document.querySelector('.chart-cnt');
+
+
 
 function chartDisplay() {
   
@@ -19,6 +21,9 @@ function chartDisplay() {
   chartContainer.classList.toggle('is-closed');
   
 }
+
+fiveDaysBtn.addEventListener("click", getWeatherFiveDays)
+   
 
  chartShowBtn.addEventListener('click', chartDisplay);
  chartCloseBtn.addEventListener('click', chartDisplay);
@@ -34,7 +39,7 @@ function getWeatherFiveDays() {
       
       return response.json();
   }).then(response => {
-    // console.log(response);
+     console.log(response);
     // console.log(response.list[0].main.temp);
     // console.log(response.list[1].main.humidity);
     // console.log(response.list[2].main.pressure);
@@ -47,15 +52,56 @@ function getWeatherFiveDays() {
     const chartDataWind = response.list.map((element) => speed.push(element.wind.speed));
 
    
+  }).then(data=> {
+    let i = 0;
+    
+    for (const date of dates){
+      let moreInfoBtn = document.createElement(`BUTTON`);
+moreInfoBtn.className = 'more-info';
+let text = document.createTextNode('more-info');
+moreInfoBtn.appendChild(text);
+      let listItem = document.createElement('ul');
+      listItem.appendChild(
+        document.createElement('li')
+      ).textContent = date;
+      listItem.appendChild(
+        document.createElement('li')
+      ).textContent = `${temperature[i]}`;
+      listItem.appendChild(
+        document.createElement('li')
+      ).textContent = `${humidity[i]}`;
+      listItem.appendChild(
+        document.createElement('li')
+      ).textContent = `${pressure[i]}`;
+      listItem.appendChild(moreInfoBtn)
+     
+      i+=8; 
+    console.log(i);
+      fiveDaysList.appendChild(listItem);
+      
+    }
   })
 };
-getWeatherFiveDays();
+//getWeatherFiveDays();
 
 const temperature = [];
 console.log(temperature);
 const humidity = [];
 const pressure = [];
 const speed = [];
+
+function renderFiveDaysList(elements) {
+  const markup = elements
+    .map((element) => {
+      return `<li>
+          <p><b>Name</b>: ${element.main.temp}</p>
+          <p><b>Email</b>: ${element.main.humidity}</p>
+          <p><b>Company</b>: ${element.main.pressure}</p>
+        </li>`;
+    })
+    .join("");
+  fiveDaysList.innerHTML = markup;
+}
 
 
 const date = new Date();
