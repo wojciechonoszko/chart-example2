@@ -60,10 +60,13 @@ function getWeatherFiveDays() {
 moreInfoBtn.className = 'more-info';
 let text = document.createTextNode('more-info');
 moreInfoBtn.appendChild(text);
+
+let dateFiveDays = document.createElement('ul');
+dateFiveDays.className = 'date-five-days';
+dateFiveDays.textContent = date
+
       let listItem = document.createElement('ul');
-      listItem.appendChild(
-        document.createElement('li')
-      ).textContent = date;
+      listItem.appendChild(dateFiveDays);
       listItem.appendChild(
         document.createElement('li')
       ).textContent = `${temperature[i]}`;
